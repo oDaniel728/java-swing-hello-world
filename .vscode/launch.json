@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run via Gradle (:app:run)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "./gradlew :app:run"
+    },
+    {
+      "name": "Debug via Gradle (:app:run --debug-jvm)",
+      "type": "java",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005,
+      "preLaunchTask": "Gradle: run (debug)"
+    }
+  ]
+}

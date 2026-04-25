@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Gradle: run",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [
+        ":app:run"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Gradle: run (debug)",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [
+        ":app:run",
+        "--debug-jvm"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "gradle",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "file": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*$",
+          "endsPattern": "Listening for transport dt_socket at address: 5005"
+        }
+      }
+    }
+  ]
+}
