@@ -4,11 +4,71 @@
 package org.example;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
+import org.example.math.Area2;
+import org.example.math.Vector2;
+import org.example.utils.Player;
+
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    @Test
+    public void playerMovesRightWithDeltaTime() {
+        Player player = new Player(0, 0);
+        player.load();
+        player.moveRight(0.5);
+
+        assertEquals(250.0, player.getXPos(), 0.001);
+    }
+
+    @Test
+    public void squareLifecycleChangesLoadedState() {
+        Square square = new Square(0, 0, 10, 10, java.awt.Color.RED);
+
+        assertFalse(square.isLoaded());
+
+        square.load();
+        assertTrue(square.isLoaded());
+
+        square.unload();
+        assertFalse(square.isLoaded());
+    }
+
+    @Test
+    public void squarePositionCanUseVector2() {
+        Square square = new Square(0, 0, 10, 10, java.awt.Color.RED);
+        square.setPosition(new Vector2(12.5, 7.25));
+
+        assertEquals(12.5, square.getXPos(), 0.001);
+        assertEquals(7.25, square.getYPos(), 0.001);
+    }
+
+    @Test
+    public void squareSizeCanUseVector2() {
+        Square square = new Square(0, 0, 10, 10, java.awt.Color.RED);
+        square.setSize(new Vector2(24, 18));
+
+        assertEquals(24.0, square.getWidthSize(), 0.001);
+        assertEquals(18.0, square.getHeightSize(), 0.001);
+    }
+
+    @Test
+    public void squareExposesArea2Geometry() {
+        Square square = new Square(3, 4, 8, 9, java.awt.Color.RED);
+        Area2 area = square.getArea();
+
+        assertEquals(3.0, area.position.x, 0.001);
+        assertEquals(4.0, area.position.y, 0.001);
+        assertEquals(8.0, area.size.x, 0.001);
+        assertEquals(9.0, area.size.y, 0.001);
+    }
+
+    @Test
+    public void vector2AddsAndScales() {
+        Vector2 base = new Vector2(2, 3);
+        Vector2 result = base.add(new Vector2(4, 1)).scale(2);
+
+        assertEquals(12.0, result.x, 0.001);
+        assertEquals(8.0, result.y, 0.001);
     }
 }

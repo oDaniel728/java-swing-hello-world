@@ -3,12 +3,39 @@
  */
 package org.example;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+    public static void createAndShowGUI() {
+        Dimension dimension = new Dimension(800, 600);
+        JFrame frame = new JFrame("Swing App");
+        InputHandler inputHandler = InputHandler.getInstance();
+        Game game = new Game();
+
+        frame.setSize(dimension);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                game.stopGame();
+            }
+        });
+
+        game.addKeyListener(inputHandler);
+        game.setFocusable(true);
+
+        frame.add(game, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+        SwingUtilities.invokeLater(game::requestFocusInWindow);
+        game.startGame();
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        SwingUtilities.invokeLater(App::createAndShowGUI);
     }
 }
